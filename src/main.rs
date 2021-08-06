@@ -1,14 +1,11 @@
-use actix_web::{web, App, HttpServer, Responder};
-
-async fn index() -> impl Responder {
-    format!("Hello World!")
-}
+use actix_web::{App, HttpServer};
+use ookma_kyi::routes::home_routes::config_home_routes;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .route("/", web::get().to(index))
+            .configure(config_home_routes)
     })
         .bind(("127.0.0.1", 8080))?
         .run()
