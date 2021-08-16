@@ -1,3 +1,4 @@
+use actix_files as fs;
 use actix_web::{App, HttpServer};
 use tera::{Tera};
 use ookma_kyi::routes::home_routes::config_home_routes;
@@ -10,6 +11,9 @@ async fn main() -> std::io::Result<()> {
         ).unwrap();
         App::new()
             .data(tera)
+            // static files
+            .service(fs::Files::new("/static", "src/public"))
+            // routes
             .configure(config_home_routes)
     })
         .bind(("127.0.0.1", 8080))?
