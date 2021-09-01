@@ -12,11 +12,11 @@ async fn main() -> std::io::Result<()> {
         ).unwrap();
         App::new()
             .data(tera)
-            .configure(config_utility_routes)
             // static files
             .service(fs::Files::new("/static", "src/public"))
             // routes
-            .configure(config_home_routes)
+            .configure(config_utility_routes)
+            .configure(config_home_routes) // this must come last
     })
         .bind(("127.0.0.1", 8080))?
         .run()
