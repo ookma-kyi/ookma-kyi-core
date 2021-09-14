@@ -1,0 +1,2 @@
+public_files = "src/public"
+views = "src/views/**/*"
