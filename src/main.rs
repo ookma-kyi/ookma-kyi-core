@@ -1,6 +1,6 @@
 use std::env;
 use actix_files as fs;
-use actix_web::{App, HttpServer};
+use actix_web::{App, HttpServer, middleware};
 use tera::{Tera};
 use ookma_kyi::models::settings::Path;
 use ookma_kyi::routes::home_routes::config_home_routes;
@@ -26,6 +26,7 @@ async fn main() -> std::io::Result<()> {
         let tera = Tera::new(&paths.views).unwrap();
         App::new()
             .data(tera)
+            .wrap(middleware::Compress::default())
             // static files
             .service(fs::Files::new("/static", &paths.public_files))
             // routes
