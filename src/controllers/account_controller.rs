@@ -8,3 +8,11 @@ pub async fn login(tmpl: web::Data<tera::Tera>) -> Result<HttpResponse, Error> {
         .map_err(|_| error::ErrorInternalServerError("Template error"))?;
     Ok(HttpResponse::Ok().content_type("text/html").body(body))
 }
+
+pub async fn signup(tmpl: web::Data<tera::Tera>) -> Result<HttpResponse, Error> {
+    let mut ctx = Context::new();
+    ctx.insert("title", "Signup");
+    let body = tmpl.render("signup.html", &ctx)
+        .map_err(|_| error::ErrorInternalServerError("Template error"))?;
+    Ok(HttpResponse::Ok().content_type("text/html").body(body))
+}
